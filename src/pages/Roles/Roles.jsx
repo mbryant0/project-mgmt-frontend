@@ -4,9 +4,11 @@ ADD POPUP THAT SAYS ARE YOU SURE YOU WANT TO DISABLE THE FOLLOWING USER ACCOUNTS
 
 */
 import React from 'react';
+import { connect } from 'react-redux';
 import Table from '../../components/Table/Table';
 
-const Roles = () => {
+const Roles = (props) => {
+  const { users } = props;
   const columns = [
     { label: '', field: 'check', sort: 'asc', width: 150 },
     {
@@ -28,20 +30,14 @@ const Roles = () => {
       width: 200,
     },
   ];
-  const rows = [
-    {
+  const rows = users.map((user) => {
+    return {
       check: <input type='checkbox' id='defaultUnchecked' />,
-      name: 'Lloyd Castillo',
-      email: 'lcastillo@fakeemail.com',
-      role: 'Admin',
-    },
-    {
-      check: <input type='checkbox' id='defaultUnchecked' />,
-      name: 'Alberta Stewart',
-      email: 'astewart@fakeemail.com',
-      role: 'Developer',
-    },
-  ];
+      name: `${user.firstname}  ${user.lastname}`,
+      email: user.email,
+      role: user.role,
+    };
+  });
 
   return (
     <div className='main'>
@@ -51,4 +47,10 @@ const Roles = () => {
     </div>
   );
 };
-export default Roles;
+
+const mapStateToProps = (state) => {
+  return {
+    users: state.users,
+  };
+};
+export default connect(mapStateToProps)(Roles);

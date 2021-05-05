@@ -1,16 +1,9 @@
-/*
-
-Create a table that includes
-Client Name
-Client City
-Client State
-Client Country
-Client Phone Number
-*/
 import React from 'react';
+import { connect } from 'react-redux';
 import Table from '../../components/Table/Table';
 
-const Clients = () => {
+const Clients = (props) => {
+  const { clients } = props;
   const columns = [
     { label: '', field: 'check', sort: 'asc', width: 150 },
     {
@@ -50,26 +43,18 @@ const Clients = () => {
       width: 100,
     },
   ];
-  const rows = [
-    {
+  const rows = clients.map((client) => {
+    return {
       check: <input type='checkbox' id='defaultUnchecked' />,
-      name: 'Coffeeroasters',
-      city: 'San Francisco',
-      state: 'CA',
-      country: 'United States of America',
-      phoneNumber: '1(888)-345-9304',
+      name: client.name,
+      city: client.city,
+      state: client.state,
+      country: client.country,
+      phoneNumber: client.phoneNumber,
       details: 'Edit details',
-    },
-    {
-      check: <input type='checkbox' id='defaultUnchecked' />,
-      name: 'Citi Bank',
-      city: 'Memphis',
-      state: 'TN',
-      country: 'United States of America',
-      phoneNumber: '1(888)-122-4587',
-      details: 'Edit details',
-    },
-  ];
+    };
+  });
+
   return (
     <div className='main'>
       <h2>Clients</h2>
@@ -79,5 +64,9 @@ const Clients = () => {
     </div>
   );
 };
-
-export default Clients;
+const mapStateToProps = (state) => {
+  return {
+    clients: state.clients,
+  };
+};
+export default connect(mapStateToProps)(Clients);
