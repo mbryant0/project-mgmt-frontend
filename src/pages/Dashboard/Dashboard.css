@@ -1,0 +1,9 @@
+.dashboard {
+  display: grid;
+  grid-template-columns: 230px 230px 230px 230px 230px 230px;
+  grid-template-rows: 200px 450px;
+  margin: 3% 4%;
+  grid-gap: 150px 16px;
+  grid-template-areas: 'graph1 graph1 graph2 graph2 graph3 graph3' 'graph4 graph4 graph4 graph5 graph5 graph5';
+  width: 70%;
+}
