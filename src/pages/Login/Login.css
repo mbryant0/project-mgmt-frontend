@@ -21,15 +21,15 @@
 .sign-in-card {
   background-color: white;
   width: 90%;
-  margin: 3% auto;
+  margin: 5vh auto;
   padding: 3%;
   box-shadow: 2px 4px 5px rgba(128, 128, 128, 0.7);
 }
 
 .demo-roles {
   display: grid;
-  grid-template-columns: 150px 150px;
-  grid-template-rows: 150px 150px;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
   grid-gap: 15px 15px;
   margin: auto;
 }
@@ -43,6 +43,7 @@
 .demo-card {
   display: flex;
   justify-content: center;
+  padding: 2%;
 }
 
 .demo {
@@ -62,7 +63,69 @@
   margin: 0;
 }
 .sign-in h2 {
-  font-size: 2rem;
-  margin: 2% auto;
+  font-size: 1.8em;
+  margin: 0 auto;
+  margin-top: 2%;
   text-align: center;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  margin-top: 2%;
+  justify-content: space-between;
+  width: 32%;
+}
+.buttons button {
+  margin: 2%;
+}
+
+.alt-btn {
+  display: none;
+}
+
+@media screen and (max-width: 1900px) {
+  .buttons {
+    width: 45%;
+  }
+}
+@media screen and (max-width: 1380px) {
+  .buttons {
+    margin: auto;
+    width: 55%;
+    flex-direction: column;
+  }
+  .alt-btn {
+    display: block;
+  }
+  .demo-toggle {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .login-page {
+    flex-direction: column;
+  }
+  .hero {
+    width: 100vw;
+  }
+  .sign-in {
+    width: 100vw;
+  }
+  .App {
+    height: 200vw !important;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  h1 {
+    font-size: 1.7rem !important;
+  }
+  h2 {
+    font-size: 1.2rem !important;
+  }
+  .App {
+    height: 300vw !important;
+  }
 }

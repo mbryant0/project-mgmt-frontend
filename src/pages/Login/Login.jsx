@@ -1,10 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Login.css';
 import { Form, FormGroup, FormControl, ControlLabel } from 'rsuite';
 import { Button } from 'rsuite';
 import { Icon } from 'rsuite';
 
 const Login = () => {
+  const [displayEmail, setDisplayEmail] = useState(true);
+  const [displayDemo, setDisplayDemo] = useState(false);
+
+  const handleClick = () => {
+    setDisplayDemo(!displayDemo);
+    setDisplayEmail(!displayEmail);
+  };
   return (
     <div className='login-page'>
       <div className='hero'>
@@ -29,22 +36,33 @@ const Login = () => {
         </div>
       </div>
       <div className='sign-in'>
-        <h2>AquaSolutions Project Managment System ©</h2>
-        <div className='sign-in-card '>
-          <p>Sign in with email and password</p>
-          <Form>
-            <FormGroup>
-              <ControlLabel>Email</ControlLabel>
-              <FormControl name='email' type='text' />
-            </FormGroup>
-            <FormGroup>
-              <ControlLabel>Password</ControlLabel>
-              <FormControl name='password' type='text' />
-            </FormGroup>
-            <Button>Sign in</Button>
-          </Form>
-        </div>
-        <div className='sign-in-card'>
+        <h2>AquaSolutions Project Management System ©</h2>
+        {displayEmail && (
+          <div className='sign-in-card '>
+            <p>Sign in with email and password</p>
+            <Form>
+              <FormGroup>
+                <ControlLabel>Email</ControlLabel>
+                <FormControl name='email' type='text' />
+              </FormGroup>
+              <FormGroup>
+                <ControlLabel>Password</ControlLabel>
+                <FormControl name='password' type='text' />
+              </FormGroup>
+              <div className='buttons'>
+                <Button>Sign in</Button>
+                <Button
+                  appearance='primary'
+                  className='alt-btn'
+                  onClick={handleClick}
+                >
+                  Sign in with Demo
+                </Button>
+              </div>
+            </Form>
+          </div>
+        )}
+        <div className='sign-in-card demo-toggle'>
           <p>Sign in with a demo account</p>
           <p>Please select a role:</p>
           <div className='demo-card'>
@@ -65,8 +83,51 @@ const Login = () => {
               </div>
             </div>
           </div>
-          <Button>Sign in</Button>
+          <div className='buttons'>
+            <Button>Sign in</Button>
+            <Button
+              appearance='primary'
+              className='alt-btn'
+              onClick={handleClick}
+            >
+              Sign in with email
+            </Button>
+          </div>
         </div>
+        {displayDemo && (
+          <div className='sign-in-card'>
+            <p>Sign in with a demo account</p>
+            <p>Please select a role:</p>
+            <div className='demo-card'>
+              <div className='demo-roles'>
+                <div className='demo'>
+                  <p>Admin</p>
+                </div>
+                <div className='demo'>
+                  <p>Developer</p>
+                </div>
+                <div className='demo'>
+                  <Icon icon='search' size='5x' />
+                  <p>Quality Assurance Analyst</p>
+                </div>
+                <div className='demo'>
+                  <Icon icon='user-secret' size='5x' />
+                  <p>Inactive (before Admin approval)</p>
+                </div>
+              </div>
+            </div>
+            <div className='buttons'>
+              <Button>Sign in</Button>
+              <Button
+                appearance='primary'
+                className='alt-btn'
+                onClick={handleClick}
+              >
+                Sign in with email
+              </Button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
