@@ -24,7 +24,7 @@ const SideNavBar = ({ ...props }) => {
         </Sidenav.Header>
         <Sidenav.Body>
           <Nav>
-            <Link to='/'>
+            <Link to='/dashboard'>
               <Nav.Item eventKey='2' active icon={<Icon icon='dashboard' />}>
                 Dashboard
               </Nav.Item>
