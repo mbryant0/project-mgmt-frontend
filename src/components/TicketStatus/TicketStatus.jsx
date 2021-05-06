@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import { Bar } from 'react-chartjs-2';
 import './BarGraph.css';
 // REVIEW THIS VIDEO IF YOU HAVE ISSUES: https://www.youtube.com/watch?v=mlSKLmG80Us
-const BarGraph = () => {
+const TicketStatus = () => {
   const [xaxis, setXaxis] = useState([]);
   const [yaxis, setYaxis] = useState([]);
   let xvalues = [];
   let yvalues = [];
+
   const data = {
     // put this in state (chartData, setChartData)
     labels: [
@@ -16,6 +17,7 @@ const BarGraph = () => {
       'Ready for Review',
       'Closed',
     ], // change to xvalues
+
     datasets: [
       {
         label: '# of Tickets',
@@ -73,4 +75,4 @@ const BarGraph = () => {
   );
 };
 
-export default BarGraph;
+export default TicketStatus;

@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Table from '../../components/Table/Table';
+import { Link } from 'react-router-dom';
 
 const Clients = (props) => {
   const { clients } = props;
@@ -51,7 +52,7 @@ const Clients = (props) => {
       state: client.state,
       country: client.country,
       phoneNumber: client.phoneNumber,
-      details: 'Edit details',
+      details: <Link to={`/clients/${client.clientid}`}>View Details</Link>,
     };
   });
 

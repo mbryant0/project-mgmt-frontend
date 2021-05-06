@@ -1,6 +1,6 @@
 .hero {
   background-image: url('../../assets/blue-hero-img.png');
-  width: 60%;
+  width: 65%;
 }
 
 .login-page {
@@ -15,7 +15,7 @@
 }
 
 .sign-in {
-  width: 40%;
+  width: 35%;
 }
 
 .sign-in-card {
@@ -31,13 +31,15 @@
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   grid-gap: 15px 15px;
-  margin: auto;
+  /*  margin: auto; */
 }
 
 .demo {
-  border: 1px solid grey;
+  border: 2px solid grey;
   border-radius: 5px;
   box-shadow: 3px 2px 2px grey;
+  cursor: pointer;
+  margin: 2px;
 }
 
 .demo-card {
@@ -82,6 +84,14 @@
 
 .alt-btn {
   display: none;
+}
+.demo:active {
+  opacity: 0.5;
+}
+.active {
+  border: 4px solid #1675e0;
+  margin: 0;
+  opacity: 1;
 }
 
 @media screen and (max-width: 1900px) {

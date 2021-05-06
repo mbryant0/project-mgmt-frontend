@@ -3,24 +3,36 @@ Format page properly
 */
 
 import React from 'react';
+import { connect } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
-const ClientDetails = () => {
+const ClientDetails = (props) => {
+  const { clientId } = useParams();
+  const { clients } = props;
+  const thisClient = clients.find((client) => client.clientid == clientId);
+
   return (
     <>
       <h2>Client Details Page</h2>
-      <h3>CoffeeRoasters</h3>
-      <p>This is a mid-sized company that sells various brands of coffee.</p>
+      <h3>{thisClient.name}</h3>
+      <p>{thisClient.description}</p>
       <p>Phone Number:</p>
-      <a href='1(888)-345-9304'>1(888)-345-9304</a>
+      <a href={thisClient.phoneNumber}>{thisClient.phoneNumber}</a>
       <br />
-      <a href='#'>www.coffeeroasters.com</a>
+      <a href='#'>{thisClient.website}</a>
       <address>
-        <p>123 Sunshine St</p>
-        <p>San Francisco, CA, 91215</p>
+        <p>{thisClient.street}</p>
+        <p>
+          {thisClient.city}, {thisClient.state} {thisClient.zip}
+        </p>
       </address>
       <p>Notes:</p> {/*Add favicon to edit notes & then add popup to do so*/}
     </>
   );
 };
-
-export default ClientDetails;
+const mapStateToProps = (state) => {
+  return {
+    clients: state.clients,
+  };
+};
+export default connect(mapStateToProps)(ClientDetails);

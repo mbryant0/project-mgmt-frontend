@@ -24,6 +24,11 @@ const Tickets = () => {
       sort: 'asc',
     },
     {
+      label: 'Ticket Status',
+      field: 'status',
+      sort: 'asc',
+    },
+    {
       label: 'Ticket Owner',
       field: 'owner',
       sort: 'asc',
@@ -54,6 +59,7 @@ const Tickets = () => {
       owner: 'Lloyd Castillo',
       assignee: 'Alberta Stewart',
       details: 'Edit details',
+      status: 'In Progress',
     },
     {
       check: <input type='checkbox' id='defaultUnchecked' />,
@@ -64,6 +70,7 @@ const Tickets = () => {
       owner: 'Lloyd Castillo',
       assignee: 'Johnnie Miles',
       details: 'Edit details',
+      status: 'Closed',
     },
   ];
 

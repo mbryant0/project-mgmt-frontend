@@ -4,6 +4,7 @@ import { Sidenav } from 'rsuite';
 import { Nav } from 'rsuite';
 import { Dropdown } from 'rsuite';
 import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 const SideNavBar = ({ ...props }) => {
   const styles = {
     width: 250,
@@ -15,7 +16,7 @@ const SideNavBar = ({ ...props }) => {
     fontSize: 18,
     color: '#fff',
   };
-
+  const history = useHistory();
   return (
     <div style={styles}>
       <Sidenav {...props}>
@@ -61,7 +62,12 @@ const SideNavBar = ({ ...props }) => {
               icon={<Icon icon='gear-circle' />}
             >
               <Dropdown.Item>User Profile</Dropdown.Item>
-              <Dropdown.Item icon={<Icon icon='sign-out' />}>
+              <Dropdown.Item
+                onClick={() => {
+                  history.push('/');
+                }}
+                icon={<Icon icon='sign-out' />}
+              >
                 Logout
               </Dropdown.Item>
             </Dropdown>

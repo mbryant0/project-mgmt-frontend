@@ -12,7 +12,7 @@ Average Time to Close Ticket (line graph)
 */
 
 import React from 'react';
-import BarGraph from '../../components/BarGraph/BarGraph';
+import TicketStatus from '../../components/TicketStatus/TicketStatus';
 import LineGraph from '../../components/LineGraph/LineGraph';
 import PieChart from '../../components/PieChart/PieChart';
 import './Dashboard.css';
@@ -22,13 +22,13 @@ const Dashboard = () => {
     <>
       <div className='dashboard'>
         <div classname='graph1' style={{ gridArea: 'graph1' }}>
-          <BarGraph />
+          <TicketStatus />
         </div>
         <div classname='graph2' style={{ gridArea: 'graph2' }}>
           <LineGraph />
         </div>
         <div classname='graph3' style={{ gridArea: 'graph3' }}>
-          <BarGraph />
+          <TicketStatus />
         </div>
         <div classname='graph4' style={{ gridArea: 'graph4' }}>
           <PieChart />
