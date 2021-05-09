@@ -1,0 +1,35 @@
+.signup-main {
+  padding: 7%;
+  width: 75%;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 5px 5px 5px grey;
+  height: 70vh;
+}
+
+.signup {
+  margin: 2% auto;
+  width: 45%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.signup button {
+  text-align: center !important;
+}
+
+
+.form-group {
+  text-align: initial;
+}
+
+.signup button {
+  padding: 2%;
+  margin: 2%;
+}
+
+.signup h1 {
+  cursor: pointer;
+  margin: 4%;
+}

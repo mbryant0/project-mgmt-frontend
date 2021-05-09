@@ -9,8 +9,11 @@ Manage Users/Details (empty header)
 
 import React from 'react';
 import Table from '../../components/Table/Table';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-const Projects = () => {
+const Projects = (props) => {
+  const { projects } = props;
   const columns = [
     { label: '', field: 'check', sort: 'asc', width: 150 },
     {
@@ -38,22 +41,16 @@ const Projects = () => {
       width: 100,
     },
   ];
-  const rows = [
-    {
+  const rows = projects.map((project) => {
+    return {
       check: <input type='checkbox' id='defaultUnchecked' />,
-      projectname: 'Coffeeroasters Website',
-      description: 'A landing page for Coffeeroasters',
-      client: 'Coffeeroasters',
-      details: 'Edit details',
-    },
-    {
-      check: <input type='checkbox' id='defaultUnchecked' />,
-      projectname: 'Invoice Tracker',
-      description: 'Invoice tracker for Citi Bank',
-      client: 'Citi Bank',
-      details: 'Edit details',
-    },
-  ];
+      projectname: project.projectname,
+      description: project.description,
+      client: project.client,
+      details: <Link to={`/projects/${project.projectid}`}>View details</Link>,
+    };
+  });
+
   return (
     <div className='main'>
       <h2>Projects</h2> <Table rows={rows} columns={columns} />
@@ -62,5 +59,9 @@ const Projects = () => {
     </div>
   );
 };
-
-export default Projects;
+const mapStateToProps = (state) => {
+  return {
+    projects: state.projects,
+  };
+};
+export default connect(mapStateToProps)(Projects);

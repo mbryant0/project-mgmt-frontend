@@ -4,8 +4,11 @@ Add hyperlinks to ticket details
 */
 import React from 'react';
 import Table from '../../components/Table/Table';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-const Tickets = () => {
+const Tickets = (props) => {
+  const { tickets } = props;
   const columns = [
     { label: '', field: 'check', sort: 'asc', width: 150 },
     {
@@ -49,30 +52,19 @@ const Tickets = () => {
       sort: 'asc',
     },
   ];
-  const rows = [
-    {
+  const rows = tickets.map((ticket) => {
+    return {
       check: <input type='checkbox' id='defaultUnchecked' />,
-      subject: 'Broken social media links',
-      projectname: 'Coffeeroasters Website',
-      priority: 'Standard',
-      created: '05/01/21 11:19PM',
-      owner: 'Lloyd Castillo',
-      assignee: 'Alberta Stewart',
-      details: 'Edit details',
-      status: 'In Progress',
-    },
-    {
-      check: <input type='checkbox' id='defaultUnchecked' />,
-      subject: 'Servers have latency issues',
-      projectname: 'Invoice Tracker',
-      created: '04/14/21 9:53AM',
-      priority: 'High',
-      owner: 'Lloyd Castillo',
-      assignee: 'Johnnie Miles',
-      details: 'Edit details',
-      status: 'Closed',
-    },
-  ];
+      subject: ticket.subject,
+      projectname: ticket.projectname,
+      priority: ticket.priority,
+      created: ticket.created,
+      owner: ticket.owner,
+      assignee: ticket.assignee,
+      status: ticket.status,
+      details: <Link to={`/tickets/${ticket.ticketid}`}>View details</Link>,
+    };
+  });
 
   return (
     <div className='main'>
@@ -84,5 +76,9 @@ const Tickets = () => {
     </div>
   );
 };
-
-export default Tickets;
+const mapStateToProps = (state) => {
+  return {
+    tickets: state.tickets,
+  };
+};
+export default connect(mapStateToProps)(Tickets);

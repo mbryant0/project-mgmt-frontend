@@ -1,22 +1,15 @@
 import React, { useState } from 'react';
 import './Login.css';
-import {
-  Form,
-  FormGroup,
-  FormControl,
-  ControlLabel,
-  SelectPicker,
-  Radio,
-} from 'rsuite';
+import { Form, FormGroup, FormControl, ControlLabel } from 'rsuite';
 import { Button } from 'rsuite';
 import { Icon } from 'rsuite';
 import { useHistory } from 'react-router-dom';
 
 const Login = () => {
-  const [displayEmail, setDisplayEmail] = useState(true);
-  const [displayDemo, setDisplayDemo] = useState(false);
   const history = useHistory();
 
+  const [displayEmail, setDisplayEmail] = useState(true);
+  const [displayDemo, setDisplayDemo] = useState(false);
   const [demoRole, setDemoRole] = useState('');
   const [active, setActive] = useState({
     admin: false,
@@ -24,6 +17,8 @@ const Login = () => {
     projectmanager: false,
     inactiveacct: false,
   });
+
+  /* Place in Redux Actions when you get a chance */
   const handleClick = () => {
     setDisplayDemo(!displayDemo);
     setDisplayEmail(!displayEmail);
@@ -82,6 +77,9 @@ const Login = () => {
           </h2>
           <p>Ready to innovate?</p>
           <button
+            onClick={() => {
+              history.push('/signup');
+            }}
             style={{
               backgroundColor: '#1b85e2',
               padding: '8px',
@@ -132,28 +130,28 @@ const Login = () => {
             <div className='demo-roles'>
               <div
                 onClick={handleAdmin}
-                className={`demo ${active.admin ? 'active' : ''}`}
+                className={`demo ${active.admin ? 'activeslct' : ''}`}
               >
                 <Icon icon='briefcase' size='5x' />
                 <p>Admin</p>
               </div>
               <div
                 onClick={handleDeveloper}
-                className={`demo ${active.developer ? 'active' : ''}`}
+                className={`demo ${active.developer ? 'activeslct' : ''}`}
               >
                 <Icon icon='code' size='5x' />
                 <p>Developer</p>
               </div>
               <div
                 onClick={handleProjectManager}
-                className={`demo ${active.projectmanager ? 'active' : ''}`}
+                className={`demo ${active.projectmanager ? 'activeslct' : ''}`}
               >
                 <Icon icon='search' size='5x' />
                 <p>Project Manager</p>
               </div>
               <div
                 onClick={handleInactive}
-                className={`demo ${active.inactiveacct ? 'active' : ''}`}
+                className={`demo ${active.inactiveacct ? 'activeslct' : ''}`}
               >
                 <Icon icon='user-secret' size='5x' />
                 <p>Inactive (before Admin approval)</p>
@@ -185,28 +183,30 @@ const Login = () => {
               <div className='demo-roles'>
                 <div
                   onClick={handleAdmin}
-                  className={`demo ${active.admin ? 'active' : ''}`}
+                  className={`demo ${active.admin ? 'activeslct' : ''}`}
                 >
                   <Icon icon='briefcase' size='5x' />
                   <p>Admin</p>
                 </div>
                 <div
                   onClick={handleDeveloper}
-                  className={`demo ${active.developer ? 'active' : ''}`}
+                  className={`demo ${active.developer ? 'activeslct' : ''}`}
                 >
                   <Icon icon='code' size='5x' />
                   <p>Developer</p>
                 </div>
                 <div
                   onClick={handleProjectManager}
-                  className={`demo ${active.projectmanager ? 'active' : ''}`}
+                  className={`demo ${
+                    active.projectmanager ? 'activeslct' : ''
+                  }`}
                 >
                   <Icon icon='search' size='5x' />
                   <p>Project Manager</p>
                 </div>
                 <div
                   onClick={handleInactive}
-                  className={`demo ${active.inactiveacct ? 'active' : ''}`}
+                  className={`demo ${active.inactiveacct ? 'activeslct' : ''}`}
                 >
                   <Icon icon='user-secret' size='5x' />
                   <p>Inactive (before Admin approval)</p>

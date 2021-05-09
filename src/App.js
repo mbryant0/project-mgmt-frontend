@@ -10,6 +10,9 @@ import Inbox from './pages/Inbox/Inbox';
 import Account from './pages/Account/Account';
 import Login from './pages/Login/Login';
 import ClientDetails from './pages/ClientDetails/ClientDetails';
+import ProjectDetails from './pages/ProjectDetails/ProjectDetails';
+import Signup from './pages/Signup/Signup';
+import TicketDetails from './pages/TicketDetails/TicketDetails';
 import './App.css';
 
 function App() {
@@ -20,11 +23,19 @@ function App() {
           <SideNavBar style={{ height: '100vh' }} appearance='inverse' />
           <Dashboard />
         </Route>
-        <Route path='/projects'>
+        <Route exact path='/projects'>
           <SideNavBar style={{ height: '100vh' }} appearance='inverse' />
           <Projects />
         </Route>
-        <Route path='/tickets'>
+        <Route path='/projects/:projectId'>
+          <SideNavBar style={{ height: '100vh' }} appearance='inverse' />
+          <ProjectDetails />
+        </Route>
+        <Route path='/tickets/:ticketId'>
+          <SideNavBar style={{ height: '100vh' }} appearance='inverse' />
+          <TicketDetails />
+        </Route>
+        <Route exact path='/tickets'>
           <SideNavBar style={{ height: '100vh' }} appearance='inverse' />
           <Tickets />
         </Route>
@@ -48,6 +59,9 @@ function App() {
           <SideNavBar style={{ height: '100vh' }} appearance='inverse' />
           <Roles />
         </Route>
+        <Route path='/signup'>
+          <Signup />
+        </Route>
         <Route path='/'>
           <Login />
         </Route>
@@ -58,27 +72,20 @@ function App() {
 
 export default App;
 /*
-MAY 6
-SIGN UP PAGE
-DETAILS PAGE
-INBOX BASIC STRUCTURE
 
-MAY 7
-SET UP BASIC BACKEND STRUCTURE + BEGIN WORKING ON ENDPOINTS IF POSSIBLE
-RESEARCH FUTURE IMPLEMENTATION SO THAT THE WORKFLOW IS SMOOTHER IN UPCOMING DAYS
-I.E. ROLE BASED ACCESS CONTROL, DASHBOARD GRAPHS, SETTING UP SQL, DEPLOYING
-MAY 8
-ORGANIZATIONS
-- CREATE ORGANIZATION (INITIAL SIGNUP, ALL USERS ALLOWED)
-- READ CURRENT ORGANIZATION (SO YOU CAN DISPLAY INFO ABOUT IT IN SETTINGS)(ALL USERS)
-- UPDATE CURRENT ORGANIZATION (SO YOU CAN EDIT IT)(ORGANIZATION OWNER)
-- DELETE CURRENT ORGANIZATION (CONTACT SUPPORT TO DELETE AN ENTIRE ORGANIZATION :))
-USERS
-- CREATE USER (INITIAL SIGNUP, ALL USERS ALLOWED)
-- READ ALL USERS (ORGANIZATION OWNER, ADMINS)
-- UPDATE USER ROLE (ORGANIZATION OWNER, ADMINS)
-- UPDATE CURRENTUSER PASSWORD (ONLY ACCESSIBLE BY USER THAT IS LOGGED IN)
-- DELETE USER (NOT DIRECTLY ACCESSIBLE BY ANYONE)
+POSTING A NEW USER TO AN ORGANIZATION
+
+1. POST A NEW ORGANIZATION TO THE DATABASE AND/OR RETRIEVE ACCESS CODE
+1. POST A NEW USER WITH ORGANIZATION OBJECT AND ORGANIZATION ID (AND MAYBE ACCESS CODE)
+
+SETSTATE(RES.DATA.USERS)
+SEND A PATCH REQUEST AS {
+  ...USERS, 
+  {
+  FIRSTNAME: 'YADDA YADA'
+  }
+}
+
 
 MAY 9
 CLIENTS
@@ -92,6 +99,21 @@ PROJECTS
 - READ CURRENT PROJECTS (OO, ADMIN, PM, DEVELOPER)
 - UPDATE PROJECTS (OO, ADMIN, PM)
 - DELETE (OO, ADMIN, PM)
+FIX SUBMITTERID + USERID ISSUE (SO WE CAN HAVE BOTH AN ASSIGNEE AND AN OWNER OF A TICKET)
+
+IDEA
+CREATE A SUBMITTER MODEL
+CONSISTS OF:
+SUBMITTER ID (AUTO GENERATED)
+@ONETOMANY RELATIONSHIP WITH TICKETS
+@ONETOONE RELATIONSHIP WITH USERS ("https://www.baeldung.com/jpa-one-to-one")
+
+ORGANIZATIONS //PATCH
+- UPDATE ORGANIZATION NAME
+
+RESEARCH FUTURE IMPLEMENTATION SO THAT THE WORKFLOW IS SMOOTHER IN UPCOMING DAYS
+I.E. ROLE BASED ACCESS CONTROL, DASHBOARD GRAPHS, SETTING UP SQL, DEPLOYING
+
 MAY 10
 TICKETS
 - CREATE (OO, ADMIN, PM, DEVELOPER, SUBMITTER)
@@ -108,8 +130,14 @@ EMAILS
 MAY 11
 EMAIL REPLIES (SAME AS ABOVE)
 SET UP USER AUTHENTICATION AND AUTHORIZATION
+
 MAY 12
+FIX ORGANIZATIONID + ACCESSCODE ISSUE
 SET UP ROLE BASED ACCESS CONTROL
+USERS
+- UPDATE USER ROLE (ORGANIZATION OWNER, ADMINS)
+- UPDATE CURRENTUSER PASSWORD (ONLY ACCESSIBLE BY USER THAT IS LOGGED IN)
+- DELETE USER (NOT DIRECTLY ACCESSIBLE BY ANYONE)
 
 MAY 13
 SET UP ALL REDUX ACTIONS AND STATE TO MAKE REQUESTS TO BACKEND
@@ -122,8 +150,9 @@ CONTINUE LINKING UP COMPONENTS
 
 MAY 16
 FINISH FRONT END FEATURES + MAKE SITE RESPONSIVE
-DEPLOY
+
 MAY 17
+DEPLOY
 TO-DO LIST
 
 ADD RADIO BUTTONS TO DEMO ACCOUNTS
