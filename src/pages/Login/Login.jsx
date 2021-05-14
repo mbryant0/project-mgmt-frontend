@@ -4,9 +4,12 @@ import { Form, FormGroup, FormControl, ControlLabel } from 'rsuite';
 import { Button } from 'rsuite';
 import { Icon } from 'rsuite';
 import { useHistory } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { loginWithEmailAndPassword } from '../../redux/actions/actions';
 
-const Login = () => {
+const Login = (props) => {
   const history = useHistory();
+  const { loginWithEmailAndPassword } = props;
 
   const [displayEmail, setDisplayEmail] = useState(true);
   const [displayDemo, setDisplayDemo] = useState(false);
@@ -17,6 +20,12 @@ const Login = () => {
     projectmanager: false,
     inactiveacct: false,
   });
+
+  const handleLoginWithEmail = (e) => {
+    e.preventDefault();
+    loginWithEmailAndPassword('test@email.com', 'password');
+    //history.push('/dashboard');
+  };
 
   /* Place in Redux Actions when you get a chance */
   const handleClick = () => {
@@ -105,13 +114,7 @@ const Login = () => {
                 <FormControl name='password' type='text' />
               </FormGroup>
               <div className='buttons'>
-                <Button
-                  onClick={() => {
-                    history.push('/dashboard');
-                  }}
-                >
-                  Sign in
-                </Button>
+                <Button onClick={handleLoginWithEmail}>Sign in</Button>
                 <Button
                   appearance='primary'
                   className='alt-btn'
@@ -236,4 +239,10 @@ const Login = () => {
   );
 };
 
-export default Login;
+const mapStateToProps = (state) => {
+  return {
+    users: state.users,
+  };
+};
+
+export default connect(mapStateToProps, { loginWithEmailAndPassword })(Login);

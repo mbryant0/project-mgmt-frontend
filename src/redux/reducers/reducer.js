@@ -138,6 +138,7 @@ const initialState = {
     },
   ],
   currentUser: {},
+  token: '',
 };
 function reducer(state = initialState, action) {
   switch (action.type) {
