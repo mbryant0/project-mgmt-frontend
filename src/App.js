@@ -72,10 +72,6 @@ function App() {
 
 export default App;
 /*
-ADMIN / PROJECT MANAGER
-DEVELOPER / QA ANALYST
-INACTIVE
-
 
 ORGANIZATION
 
@@ -124,7 +120,6 @@ UPDATE (ALL ASSIGNED USERS EXCEPT DEMO ACCOUNTS)
 DELETE (ADMIN, PROJECT MANAGER)
 
 
-MAY 11
 // create Auditing Fields (created/updated field) / Fix bugs with submitter
 // create a HISTORY OBJECT
 Example
@@ -138,25 +133,45 @@ DATE
 TIME        {FIRST NAME}{LAST NAME} updated {TARGET OBJECT} #{ID}'s {TARGET FIELD} from {OLDVALUE} to {NEWVALUE}
 
 It could be nice to click on a user's name and message them about the change, so I will be joining with the User Table
-MAY 13
-SET UP ROLE BASED ACCESS CONTROL
-Add Delete and Patch methods to the appropriate classes
-SET UP ALL REDUX ACTIONS AND STATE TO MAKE REQUESTS TO BACKEND
 
 MAY 14
-SET UP ALL REDUX ACTIONS AND STATE TO MAKE REQUESTS TO BACKEND
-START LINKING THEM UP TO THE COMPONENTS 
+MAKE THE FOLLOWING PAGES FUNCTIONAL WITH BACKEND:
+
+SIGNIN (demo accounts, protected routes, add additional dummy users to database)
+SIGNUP (sign up as inactive of existing organization + sign up as admin of new organization)
+CLIENTS (create, update + delete clients, read client info and load it into table, add dummy clients to test)
+CLIENTDETAILS (read the details of a specific client)
+
+
 MAY 15
-CONTINUE LINKING UP COMPONENTS
+
+MAKE THE FOLLOWING PAGES FUNCTIONAL WITH BACKEND:
+
+PROJECTS
+PROJECTDETAILS
+TICKETS
+TICKETDETAILS
 
 MAY 16
-FINISH FRONT END FEATURES + MAKE SITE RESPONSIVE
+
+MAKE THE FOLLOWING PAGES FUNCTIONAL WITH BACKEND:
+
+INBOX
+DASHBOARD
+ROLES
+ACCOUNT
+
 
 MAY 17
-DEPLOY
-TO-DO LIST
+DEPLOY FRONT END
+UPDATE README
+REMOVE MISC CONSOLE.LOGS, FILES, ETC
 
-ADD RADIO BUTTONS TO DEMO ACCOUNTS
+MAY 18
+ADD TESTS ON FRONT END + BACK END + SECURITY + ANY FINISHING TOUCHES
+
+
+
 FAQ
 HOW DO I DELETE MY OWN ACCOUNT?
 FOR ADMINS(NON-ORGANIZATION OWNERS):
