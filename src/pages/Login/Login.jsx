@@ -1,16 +1,13 @@
 import React, { useState } from 'react';
 import './Login.css';
-import { Form, FormGroup, FormControl, ControlLabel } from 'rsuite';
 import { Button } from 'rsuite';
 import { Icon } from 'rsuite';
-import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { loginWithEmailAndPassword } from '../../redux/actions/actions';
+import EmailAndPassword from '../../components/EmailAndPassword/EmailAndPassword';
+import { useHistory } from 'react-router-dom';
 
 const Login = (props) => {
   const history = useHistory();
-  const { loginWithEmailAndPassword } = props;
-
   const [displayEmail, setDisplayEmail] = useState(true);
   const [displayDemo, setDisplayDemo] = useState(false);
   const [demoRole, setDemoRole] = useState('');
@@ -21,13 +18,6 @@ const Login = (props) => {
     inactiveacct: false,
   });
 
-  const handleLoginWithEmail = (e) => {
-    e.preventDefault();
-    loginWithEmailAndPassword('test@email.com', 'password');
-    //history.push('/dashboard');
-  };
-
-  /* Place in Redux Actions when you get a chance */
   const handleClick = () => {
     setDisplayDemo(!displayDemo);
     setDisplayEmail(!displayEmail);
@@ -101,31 +91,7 @@ const Login = (props) => {
       </div>
       <div className='sign-in'>
         <h2>AquaSolutions Project Management System ©</h2>
-        {displayEmail && (
-          <div className='sign-in-card '>
-            <p>Sign in with email and password</p>
-            <Form>
-              <FormGroup>
-                <ControlLabel>Email</ControlLabel>
-                <FormControl name='email' type='text' />
-              </FormGroup>
-              <FormGroup>
-                <ControlLabel>Password</ControlLabel>
-                <FormControl name='password' type='text' />
-              </FormGroup>
-              <div className='buttons'>
-                <Button onClick={handleLoginWithEmail}>Sign in</Button>
-                <Button
-                  appearance='primary'
-                  className='alt-btn'
-                  onClick={handleClick}
-                >
-                  Sign in with Demo
-                </Button>
-              </div>
-            </Form>
-          </div>
-        )}
+        {displayEmail && <EmailAndPassword handleClick={handleClick} />}
         <div className='sign-in-card demo-toggle'>
           <p>Sign in with a demo account</p>
           <p>Please select a role:</p>
@@ -245,4 +211,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { loginWithEmailAndPassword })(Login);
+export default connect(mapStateToProps, {})(Login);
