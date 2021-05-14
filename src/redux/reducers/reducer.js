@@ -1,4 +1,8 @@
-import { START_SIGN_UP } from '../actions/actions';
+import {
+  CREATE_ORGANIZATION,
+  SIGN_UP_SUCCESS,
+  FIND_ORGANIZATION_SUCCESS,
+} from '../actions/actions';
 
 const initialState = {
   users: [
@@ -139,11 +143,16 @@ const initialState = {
   ],
   currentUser: {},
   token: '',
+  organizationid: '',
 };
 function reducer(state = initialState, action) {
   switch (action.type) {
-    case START_SIGN_UP:
-      return { ...state, currentUser: action.payload };
+    case SIGN_UP_SUCCESS:
+      return { ...state, token: action.payload };
+    case CREATE_ORGANIZATION:
+      return { ...state, organizationid: action.payload };
+    case FIND_ORGANIZATION_SUCCESS:
+      return { ...state, organizationid: action.payload.id };
     default:
       return state;
   }

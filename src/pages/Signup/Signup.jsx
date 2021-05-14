@@ -3,11 +3,30 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import './Signup.css';
 import { useHistory } from 'react-router-dom';
-import { signUp } from '../../redux/actions/actions';
 import { connect } from 'react-redux';
+import {
+  createOrganization,
+  checkIfOrganizationExists,
+  handleSignUp,
+} from '../../redux/actions/actions';
+
 const Signup = (props) => {
   const history = useHistory();
-  const { signUp } = props;
+  const {
+    handleSignUp,
+    checkIfOrganizationExists,
+    createOrganization,
+    organizationid,
+  } = props;
+  const initialSignUpValues = {
+    firstname: '',
+    lastname: '',
+    emailaddress: '',
+    password: '',
+    confirmPassword: '',
+    organizationname: '',
+    organizationid: '',
+  };
   const [display, setDisplay] = useState({
     create: false,
     buttons: true,
@@ -16,14 +35,10 @@ const Signup = (props) => {
     createBack: false,
     joinBack: false,
   });
+  console.log(organizationid);
+  const [signUpState, setSignUpState] = useState(initialSignUpValues);
 
-  const [signUpState, setSignUpState] = useState({
-    firstname: '',
-    lastname: '',
-    emailaddress: '',
-    password: '',
-    confirmPassword: '',
-  });
+  const [disabled, setDisabled] = useState(true);
 
   const handleCreate = () => {
     setDisplay({
@@ -53,9 +68,22 @@ const Signup = (props) => {
       join: false,
       userInfo: false,
     });
+    setSignUpState(initialSignUpValues);
   };
 
-  const handleUserInfo = () => {
+  const handleNewOrganization = () => {
+    createOrganization(signUpState.organizationname);
+    setDisplay({
+      ...display,
+      create: false,
+      buttons: false,
+      join: false,
+      userInfo: true,
+    });
+  };
+
+  const handleExistingOrganization = () => {
+    checkIfOrganizationExists(signUpState.organizationid);
     setDisplay({
       ...display,
       create: false,
@@ -68,12 +96,13 @@ const Signup = (props) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setSignUpState({ ...signUpState, [name]: value });
+    console.log(signUpState);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('clicked');
-    signUp(signUpState);
+    handleSignUp(signUpState);
   };
   return (
     <div className='signup'>
@@ -96,10 +125,15 @@ const Signup = (props) => {
         <Form className='signup-main'>
           <p>What would you like to name your organization?</p>
           <Form.Group>
-            <Form.Control type='text' />
+            <Form.Control
+              type='text'
+              name='organizationname'
+              value={signUpState.organizationname}
+              onChange={handleChange}
+            />
           </Form.Group>
           <Button onClick={handleReturn}>Go Back</Button>
-          <Button onClick={handleUserInfo}>Next</Button>
+          <Button onClick={handleNewOrganization}>Next</Button>
         </Form>
       )}
       {display.join && (
@@ -107,10 +141,15 @@ const Signup = (props) => {
           <p>Enter your organization's identification code</p>
           <Form>
             <Form.Group>
-              <Form.Control type='text' />
+              <Form.Control
+                type='text'
+                name='organizationid'
+                value={signUpState.organizationid}
+                onChange={handleChange}
+              />
             </Form.Group>
             <Button onClick={handleReturn}>Go Back</Button>
-            <Button onClick={handleUserInfo}>Next</Button>
+            <Button onClick={handleExistingOrganization}>Next</Button>
           </Form>
         </div>
       )}
@@ -180,7 +219,12 @@ const Signup = (props) => {
 const mapStateToProps = (state) => {
   return {
     currentUser: state.currentUser,
+    organizationid: state.organizationid,
   };
 };
 
-export default connect(mapStateToProps, { signUp })(Signup);
+export default connect(mapStateToProps, {
+  handleSignUp,
+  createOrganization,
+  checkIfOrganizationExists,
+})(Signup);

@@ -14,7 +14,6 @@ const EmailAndPassword = (props) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setLoginCredentials({ ...loginCredentials, [name]: value });
-    console.log(loginCredentials);
   };
 
   const handleLoginWithEmail = (e) => {

@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Icon } from 'rsuite';
 import { Sidenav } from 'rsuite';
 import { Nav } from 'rsuite';
 import { Dropdown } from 'rsuite';
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
+
 const SideNavBar = ({ ...props }) => {
   const styles = {
     width: 250,
@@ -17,6 +18,7 @@ const SideNavBar = ({ ...props }) => {
     color: '#fff',
   };
   const history = useHistory();
+
   return (
     <div style={styles}>
       <Sidenav {...props}>
