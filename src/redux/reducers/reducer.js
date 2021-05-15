@@ -4,6 +4,7 @@ import {
   FIND_ORGANIZATION_SUCCESS,
   RETRIEVE_USER_INFO,
   LOAD_USERS,
+  LOGOUT_SUCCESS,
 } from '../actions/actions';
 
 const initialState = {
@@ -101,6 +102,10 @@ function reducer(state = initialState, action) {
       return { ...state, currentUser: action.payload };
     case LOAD_USERS:
       return { ...state, users: action.payload };
+
+    case LOGOUT_SUCCESS:
+      return { ...state, currentUser: {} };
+
     default:
       return state;
   }

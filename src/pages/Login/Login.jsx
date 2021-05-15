@@ -72,6 +72,7 @@ const Login = (props) => {
   const signInWithDemo = () => {
     console.log('BEFORE SIGN IN..');
     loginWithEmailAndPassword(demoRole.email, demoRole.password).then(() => {
+      setDemoRole({ email: '', password: '' });
       history.push('/dashboard');
     });
   };

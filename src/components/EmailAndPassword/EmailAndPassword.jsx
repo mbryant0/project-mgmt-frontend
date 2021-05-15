@@ -25,6 +25,7 @@ const EmailAndPassword = (props) => {
       loginCredentials.password
     );
     history.push('/dashboard');
+    setLoginCredentials({ email: '', password: '' });
   };
 
   return (
