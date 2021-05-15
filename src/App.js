@@ -1,3 +1,4 @@
+import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import 'rsuite/dist/styles/rsuite-default.css';
 import Dashboard from './pages/Dashboard/Dashboard';
@@ -13,8 +14,11 @@ import ClientDetails from './pages/ClientDetails/ClientDetails';
 import ProjectDetails from './pages/ProjectDetails/ProjectDetails';
 import Signup from './pages/Signup/Signup';
 import TicketDetails from './pages/TicketDetails/TicketDetails';
+import { retrieveUserInfo } from './redux/actions/actions';
+import { connect } from 'react-redux';
 import './App.css';
 
+// Get User Info by placing a useEffect on this file and then passing the user information as a prop
 function App() {
   return (
     <div className='App'>

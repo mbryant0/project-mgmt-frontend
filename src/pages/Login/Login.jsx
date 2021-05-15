@@ -1,16 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Login.css';
 import { Button } from 'rsuite';
 import { Icon } from 'rsuite';
 import { connect } from 'react-redux';
 import EmailAndPassword from '../../components/EmailAndPassword/EmailAndPassword';
 import { useHistory } from 'react-router-dom';
+import { loginWithEmailAndPassword } from '../../redux/actions/actions';
 
 const Login = (props) => {
   const history = useHistory();
+  const { loginWithEmailAndPassword } = props;
   const [displayEmail, setDisplayEmail] = useState(true);
   const [displayDemo, setDisplayDemo] = useState(false);
-  const [demoRole, setDemoRole] = useState('');
+  const [demoRole, setDemoRole] = useState({ email: '', password: '' });
   const [active, setActive] = useState({
     admin: false,
     developer: false,
@@ -24,7 +26,7 @@ const Login = (props) => {
   };
 
   const handleAdmin = (e) => {
-    setDemoRole('Demo Admin');
+    setDemoRole({ email: 'datester@email.com', password: 'ADMIN_2021_DEMO' });
     console.log(demoRole);
     setActive({
       admin: true,
@@ -34,7 +36,7 @@ const Login = (props) => {
     });
   };
   const handleDeveloper = (e) => {
-    setDemoRole('Demo Developer');
+    setDemoRole({ email: 'devtester@email.com', password: 'DEV_2021_DEMO' });
     console.log(demoRole);
     setActive({
       admin: false,
@@ -44,7 +46,7 @@ const Login = (props) => {
     });
   };
   const handleProjectManager = (e) => {
-    setDemoRole('Demo Project Manager');
+    setDemoRole({ email: 'dpmtester@email.com', password: 'PM_2021_DEMO' });
     console.log(demoRole);
     setActive({
       admin: false,
@@ -54,7 +56,10 @@ const Login = (props) => {
     });
   };
   const handleInactive = (e) => {
-    setDemoRole('Demo Inactive');
+    setDemoRole({
+      email: 'inactive@email.com',
+      password: 'INACTIVE_2021_DEMO',
+    });
     console.log(demoRole);
     setActive({
       admin: false,
@@ -63,6 +68,14 @@ const Login = (props) => {
       inactiveacct: true,
     });
   };
+
+  const signInWithDemo = () => {
+    console.log('BEFORE SIGN IN..');
+    loginWithEmailAndPassword(demoRole.email, demoRole.password).then(() => {
+      history.push('/dashboard');
+    });
+  };
+
   return (
     <div className='login-page'>
       <div className='hero'>
@@ -128,13 +141,7 @@ const Login = (props) => {
             </div>
           </div>
           <div className='buttons'>
-            <Button
-              onClick={() => {
-                history.push('/dashboard');
-              }}
-            >
-              Sign in
-            </Button>
+            <Button onClick={signInWithDemo}>Sign in</Button>
             <Button
               appearance='primary'
               className='alt-btn'
@@ -183,13 +190,7 @@ const Login = (props) => {
               </div>
             </div>
             <div className='buttons'>
-              <Button
-                onClick={() => {
-                  history.push('/dashboard');
-                }}
-              >
-                Sign in
-              </Button>
+              <Button onClick={signInWithDemo}>Sign in</Button>
               <Button
                 appearance='primary'
                 className='alt-btn'
@@ -211,4 +212,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, {})(Login);
+export default connect(mapStateToProps, { loginWithEmailAndPassword })(Login);

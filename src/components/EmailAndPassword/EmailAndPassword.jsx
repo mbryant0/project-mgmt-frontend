@@ -3,8 +3,10 @@ import Form from 'react-bootstrap/Form';
 import { Button } from 'rsuite';
 import { connect } from 'react-redux';
 import { loginWithEmailAndPassword } from '../../redux/actions/actions';
+import { useHistory } from 'react-router-dom';
 
 const EmailAndPassword = (props) => {
+  const history = useHistory();
   const { loginWithEmailAndPassword, handleClick } = props;
   const [loginCredentials, setLoginCredentials] = useState({
     email: '',
@@ -22,7 +24,7 @@ const EmailAndPassword = (props) => {
       loginCredentials.email,
       loginCredentials.password
     );
-    //history.push('/dashboard');
+    history.push('/dashboard');
   };
 
   return (

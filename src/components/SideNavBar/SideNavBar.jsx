@@ -5,8 +5,11 @@ import { Nav } from 'rsuite';
 import { Dropdown } from 'rsuite';
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { logOutUser } from '../../redux/actions/actions';
+import axios from 'axios';
 
-const SideNavBar = ({ ...props }) => {
+const SideNavBar = (props) => {
   const styles = {
     width: 250,
     display: 'inline-table',
@@ -19,11 +22,50 @@ const SideNavBar = ({ ...props }) => {
   };
   const history = useHistory();
 
+  const [welcomeMessage, setWelcomeMessage] = useState('');
+
+  useEffect(() => {
+    let isMounted = true;
+    return axios
+      .get('http://localhost:2021/users/getuserinfo', {
+        headers: { Authorization: 'Bearer ' + localStorage.getItem('token') },
+      })
+      .then((res) => {
+        if (isMounted) {
+          setLocalCurrentUser(res.data);
+        }
+        return () => {
+          isMounted = false;
+        };
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
+  useEffect(() => {
+    var today = new Date();
+    var currentHour = today.getHours();
+    if (currentHour < 12) {
+      setWelcomeMessage('Good morning');
+    } else if (currentHour < 18) {
+      setWelcomeMessage('Good afternoon');
+    } else {
+      setWelcomeMessage('Good evening');
+    }
+  }, [welcomeMessage]);
+
+  const [localCurrentUser, setLocalCurrentUser] = useState({});
+
+  const handleLogOut = () => {
+    props.logOutUser();
+    history.push('/');
+  };
+
   return (
     <div style={styles}>
-      <Sidenav {...props}>
+      <Sidenav style={props.style} appearance={props.appearance}>
         <Sidenav.Header style={headerStyles}>
-          Welcome Back, DemoA!
+          {`${welcomeMessage}, ${localCurrentUser.firstname}!`}
         </Sidenav.Header>
         <Sidenav.Body>
           <Nav>
@@ -65,9 +107,7 @@ const SideNavBar = ({ ...props }) => {
             >
               <Dropdown.Item>User Profile</Dropdown.Item>
               <Dropdown.Item
-                onClick={() => {
-                  history.push('/');
-                }}
+                onClick={handleLogOut}
                 icon={<Icon icon='sign-out' />}
               >
                 Logout
@@ -79,5 +119,7 @@ const SideNavBar = ({ ...props }) => {
     </div>
   );
 };
-
-export default SideNavBar;
+const mapStateToProps = (state) => {
+  return { currentUser: state.currentUser };
+};
+export default connect(mapStateToProps, { logOutUser })(SideNavBar);

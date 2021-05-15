@@ -96,13 +96,12 @@ const Signup = (props) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setSignUpState({ ...signUpState, [name]: value });
-    console.log(signUpState);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('clicked');
     handleSignUp(signUpState);
+    history.push('/dashboard');
   };
   return (
     <div className='signup'>

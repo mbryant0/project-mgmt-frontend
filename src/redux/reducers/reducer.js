@@ -2,6 +2,7 @@ import {
   CREATE_ORGANIZATION,
   SIGN_UP_SUCCESS,
   FIND_ORGANIZATION_SUCCESS,
+  RETRIEVE_USER_INFO,
 } from '../actions/actions';
 
 const initialState = {
@@ -142,7 +143,6 @@ const initialState = {
     },
   ],
   currentUser: {},
-  token: '',
   organizationid: '',
 };
 function reducer(state = initialState, action) {
@@ -153,6 +153,8 @@ function reducer(state = initialState, action) {
       return { ...state, organizationid: action.payload };
     case FIND_ORGANIZATION_SUCCESS:
       return { ...state, organizationid: action.payload.id };
+    case RETRIEVE_USER_INFO:
+      return { ...state, currentUser: action.payload };
     default:
       return state;
   }
