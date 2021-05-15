@@ -3,67 +3,10 @@ import {
   SIGN_UP_SUCCESS,
   FIND_ORGANIZATION_SUCCESS,
   RETRIEVE_USER_INFO,
+  LOAD_USERS,
 } from '../actions/actions';
 
 const initialState = {
-  users: [
-    {
-      userid: 1,
-      firstname: 'DemoA',
-      lastname: 'Account',
-      role: 'Demo Admin',
-      email: 'demoa@fakemail.com',
-      password: 'password',
-    },
-    {
-      userid: 2,
-      firstname: 'DemoD',
-      lastname: 'Account',
-      role: 'Demo Developer',
-      email: 'demod@fakemail.com',
-      password: 'password',
-    },
-    {
-      userid: 3,
-      firstname: 'DemoQA',
-      lastname: 'Account',
-      role: 'Demo Quality Assurance Analyst',
-      email: 'demoqa@fakemail.com',
-      password: 'password',
-    },
-    {
-      userid: 4,
-      firstname: 'DemoI',
-      lastname: 'Account',
-      role: 'Demo Inactive',
-      email: 'demoi@fakemail.com',
-      password: 'password',
-    },
-    {
-      userid: 5,
-      firstname: 'Lloyd',
-      lastname: 'Castillo',
-      role: 'Admin',
-      email: 'lcastillo@fakemail.com',
-      password: 'password',
-    },
-    {
-      userid: 6,
-      firstname: 'Alberta',
-      lastname: 'Stewart',
-      role: 'Developer',
-      email: 'astewart@fakemail.com',
-      password: 'password',
-    },
-    {
-      userid: 7,
-      firstname: 'Jana',
-      lastname: 'Sparks',
-      role: 'Developer',
-      email: 'jsparks@fakemail.com',
-      password: 'password',
-    },
-  ],
   clients: [
     {
       clientid: 1,
@@ -143,6 +86,7 @@ const initialState = {
     },
   ],
   currentUser: {},
+  users: [],
   organizationid: '',
 };
 function reducer(state = initialState, action) {
@@ -155,6 +99,8 @@ function reducer(state = initialState, action) {
       return { ...state, organizationid: action.payload.id };
     case RETRIEVE_USER_INFO:
       return { ...state, currentUser: action.payload };
+    case LOAD_USERS:
+      return { ...state, users: action.payload };
     default:
       return state;
   }

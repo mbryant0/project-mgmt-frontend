@@ -141,7 +141,7 @@ It could be nice to click on a user's name and message them about the change, so
 MAY 14
 MAKE THE FOLLOWING PAGES FUNCTIONAL WITH BACKEND:
 
-SIGNIN (demo accounts, protected routes, add additional dummy users to database)
+SIGNIN (demo accounts, protected routes)
 SIGNUP (sign up as inactive of existing organization + sign up as admin of new organization)
 CLIENTS (create, update + delete clients, read client info and load it into table, add dummy clients to test)
 CLIENTDETAILS (read the details of a specific client)

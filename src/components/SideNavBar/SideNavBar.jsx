@@ -6,8 +6,11 @@ import { Dropdown } from 'rsuite';
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { logOutUser } from '../../redux/actions/actions';
-import axios from 'axios';
+import {
+  logOutUser,
+  getCurrentUserInfo,
+  loadOrganizationUsers,
+} from '../../redux/actions/actions';
 
 const SideNavBar = (props) => {
   const styles = {
@@ -21,26 +24,13 @@ const SideNavBar = (props) => {
     color: '#fff',
   };
   const history = useHistory();
+  const { getCurrentUserInfo, logOutUser, currentUser, loadOrganizationUsers } =
+    props;
 
   const [welcomeMessage, setWelcomeMessage] = useState('');
 
   useEffect(() => {
-    let isMounted = true;
-    return axios
-      .get('http://localhost:2021/users/getuserinfo', {
-        headers: { Authorization: 'Bearer ' + localStorage.getItem('token') },
-      })
-      .then((res) => {
-        if (isMounted) {
-          setLocalCurrentUser(res.data);
-        }
-        return () => {
-          isMounted = false;
-        };
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    getCurrentUserInfo();
   });
   useEffect(() => {
     var today = new Date();
@@ -54,10 +44,8 @@ const SideNavBar = (props) => {
     }
   }, [welcomeMessage]);
 
-  const [localCurrentUser, setLocalCurrentUser] = useState({});
-
   const handleLogOut = () => {
-    props.logOutUser();
+    logOutUser();
     history.push('/');
   };
 
@@ -65,7 +53,7 @@ const SideNavBar = (props) => {
     <div style={styles}>
       <Sidenav style={props.style} appearance={props.appearance}>
         <Sidenav.Header style={headerStyles}>
-          {`${welcomeMessage}, ${localCurrentUser.firstname}!`}
+          {`${welcomeMessage}, ${currentUser.firstname}!`}
         </Sidenav.Header>
         <Sidenav.Body>
           <Nav>
@@ -122,4 +110,8 @@ const SideNavBar = (props) => {
 const mapStateToProps = (state) => {
   return { currentUser: state.currentUser };
 };
-export default connect(mapStateToProps, { logOutUser })(SideNavBar);
+export default connect(mapStateToProps, {
+  logOutUser,
+  getCurrentUserInfo,
+  loadOrganizationUsers,
+})(SideNavBar);
