@@ -21,19 +21,19 @@ const Dashboard = () => {
   return (
     <>
       <div className='dashboard'>
-        <div classname='graph1' style={{ gridArea: 'graph1' }}>
+        <div className='graph1' style={{ gridArea: 'graph1' }}>
           <TicketStatus />
         </div>
-        <div classname='graph2' style={{ gridArea: 'graph2' }}>
+        <div className='graph2' style={{ gridArea: 'graph2' }}>
           <LineGraph />
         </div>
-        <div classname='graph3' style={{ gridArea: 'graph3' }}>
+        <div className='graph3' style={{ gridArea: 'graph3' }}>
           <TicketStatus />
         </div>
-        <div classname='graph4' style={{ gridArea: 'graph4' }}>
+        <div className='graph4' style={{ gridArea: 'graph4' }}>
           <PieChart />
         </div>
-        <div classname='graph5' style={{ gridArea: 'graph5' }}>
+        <div className='graph5' style={{ gridArea: 'graph5' }}>
           <PieChart />
         </div>
       </div>

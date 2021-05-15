@@ -1,12 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import Table from '../../components/Table/Table';
 import { Link } from 'react-router-dom';
+import { loadOrganizationClients } from '../../redux/actions/actions';
 
 const Clients = (props) => {
-  const { clients } = props;
+  const { clients, loadOrganizationClients } = props;
+
+  useEffect(() => {
+    loadOrganizationClients();
+  }, []);
+  console.log(clients);
   const columns = [
-    { label: '', field: 'check', sort: 'asc', width: 150 },
+    { label: '', field: 'check', sort: 'disabled', width: 150 },
     {
       label: 'Name',
       field: 'name',
@@ -16,31 +22,26 @@ const Clients = (props) => {
     {
       label: 'City',
       field: 'city',
-      sort: 'asc',
       width: 270,
     },
     {
       label: 'State',
       field: 'state',
-      sort: 'asc',
       width: 200,
     },
     {
       label: 'Country',
       field: 'country',
-      sort: 'asc',
       width: 200,
     },
     {
       label: 'Phone Number',
       field: 'phoneNumber',
-      sort: 'asc',
       width: 200,
     },
     {
       label: '',
       field: 'details',
-      sort: 'asc',
       width: 100,
     },
   ];
@@ -51,7 +52,7 @@ const Clients = (props) => {
       city: client.city,
       state: client.state,
       country: client.country,
-      phoneNumber: client.phoneNumber,
+      phoneNumber: client.phonenumber,
       details: <Link to={`/clients/${client.clientid}`}>View Details</Link>,
     };
   });
@@ -70,4 +71,4 @@ const mapStateToProps = (state) => {
     clients: state.clients,
   };
 };
-export default connect(mapStateToProps)(Clients);
+export default connect(mapStateToProps, { loadOrganizationClients })(Clients);

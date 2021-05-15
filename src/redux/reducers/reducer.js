@@ -5,36 +5,10 @@ import {
   RETRIEVE_USER_INFO,
   LOAD_USERS,
   LOGOUT_SUCCESS,
+  LOAD_CLIENTS,
 } from '../actions/actions';
 
 const initialState = {
-  clients: [
-    {
-      clientid: 1,
-      name: 'Coffeeroasters',
-      city: 'San Francisco',
-      state: 'CA',
-      zip: '91215',
-      country: 'United States of America',
-      phoneNumber: '1(888)-345-9304',
-      description:
-        'This is a mid-sized company that sells various brands of coffee.',
-      website: 'www.coffeeroasters.com',
-      street: '123 Sunshine St',
-    },
-    {
-      clientid: 2,
-      name: 'Citi Bank',
-      city: 'Memphis',
-      state: 'TN',
-      zip: '60734',
-      country: 'United States of America',
-      phoneNumber: '1(888)-122-4587',
-      description: 'null null',
-      website: 'citibank.com',
-      street: '83 Broadway Blvd',
-    },
-  ],
   projects: [
     {
       projectid: 1,
@@ -88,6 +62,7 @@ const initialState = {
   ],
   currentUser: {},
   users: [],
+  clients: [],
   organizationid: '',
 };
 function reducer(state = initialState, action) {
@@ -105,6 +80,8 @@ function reducer(state = initialState, action) {
 
     case LOGOUT_SUCCESS:
       return { ...state, currentUser: {} };
+    case LOAD_CLIENTS:
+      return { ...state, clients: action.payload };
 
     default:
       return state;

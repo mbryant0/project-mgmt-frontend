@@ -31,7 +31,7 @@ const SideNavBar = (props) => {
 
   useEffect(() => {
     getCurrentUserInfo();
-  });
+  }, [currentUser]);
   useEffect(() => {
     var today = new Date();
     var currentHour = today.getHours();
@@ -42,7 +42,7 @@ const SideNavBar = (props) => {
     } else {
       setWelcomeMessage('Good evening');
     }
-  }, [welcomeMessage]);
+  });
 
   const handleLogOut = () => {
     logOutUser();
