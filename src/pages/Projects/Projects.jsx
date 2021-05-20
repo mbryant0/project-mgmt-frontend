@@ -7,13 +7,19 @@ Manage Users/Details (empty header)
 
 */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import Table from '../../components/Table/Table';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { loadOrganizationProjects } from '../../redux/actions/actions';
 
 const Projects = (props) => {
-  const { projects } = props;
+  const { projects, loadOrganizationProjects } = props;
+
+  useEffect(() => {
+    loadOrganizationProjects();
+  }, []);
+
   const columns = [
     { label: '', field: 'check', sort: 'asc', width: 150 },
     {
@@ -46,7 +52,7 @@ const Projects = (props) => {
       check: <input type='checkbox' id='defaultUnchecked' />,
       projectname: project.projectname,
       description: project.description,
-      client: project.client,
+      client: project.client.name,
       details: <Link to={`/projects/${project.projectid}`}>View details</Link>,
     };
   });
@@ -64,4 +70,4 @@ const mapStateToProps = (state) => {
     projects: state.projects,
   };
 };
-export default connect(mapStateToProps)(Projects);
+export default connect(mapStateToProps, { loadOrganizationProjects })(Projects);

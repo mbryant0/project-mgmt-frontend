@@ -6,23 +6,11 @@ import {
   LOAD_USERS,
   LOGOUT_SUCCESS,
   LOAD_CLIENTS,
+  LOAD_PROJECTS,
 } from '../actions/actions';
 
 const initialState = {
-  projects: [
-    {
-      projectid: 1,
-      projectname: 'Cofferoasters Website',
-      description: 'A landing page for Coffeeroasters',
-      client: 'Coffeeroasters',
-    },
-    {
-      projectid: 2,
-      projectname: 'Invoice Tracker',
-      description: 'Invoice tracker for Citi Bank',
-      client: 'Citi Bank',
-    },
-  ],
+  projects: [],
   tickets: [
     {
       ticketid: 1,
@@ -82,6 +70,8 @@ function reducer(state = initialState, action) {
       return { ...state, currentUser: {} };
     case LOAD_CLIENTS:
       return { ...state, clients: action.payload };
+    case LOAD_PROJECTS:
+      return { ...state, projects: action.payload };
 
     default:
       return state;
