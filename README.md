@@ -4,4 +4,4 @@ A website for development teams to manage projects with their clients and commun
 
 ## Project Screenshots
 
-![Project screenshot 1](./client/src/assets/ProjectScreenshot2.png)
+![Project screenshot 1](./src/assets/ProjectScreenshot2.png)
