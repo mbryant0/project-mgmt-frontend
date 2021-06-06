@@ -23,9 +23,9 @@ const Signup = (props) => {
     lastname: '',
     emailaddress: '',
     password: '',
-    confirmPassword: '',
-    organizationname: '',
-    organizationid: '',
+    organization: {
+      organizationid: '',
+    },
   };
   const [display, setDisplay] = useState({
     create: false,
@@ -83,7 +83,7 @@ const Signup = (props) => {
   };
 
   const handleExistingOrganization = () => {
-    checkIfOrganizationExists(signUpState.organizationid);
+    checkIfOrganizationExists(signUpState.organization.organizationid);
     setDisplay({
       ...display,
       create: false,
@@ -94,10 +94,24 @@ const Signup = (props) => {
   };
 
   const handleChange = (e) => {
+    console.log(signUpState);
     const { name, value } = e.target;
-    setSignUpState({ ...signUpState, [name]: value });
+    console.log(value);
+    setSignUpState({
+      ...signUpState,
+      [name]: value,
+    });
   };
 
+  const handleOrganizationChange = (e) => {
+    const { name, value } = e.target;
+    setSignUpState({
+      ...signUpState,
+      organization: {
+        organizationid: value,
+      },
+    });
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     handleSignUp(signUpState);
@@ -142,9 +156,9 @@ const Signup = (props) => {
             <Form.Group>
               <Form.Control
                 type='text'
-                name='organizationid'
-                value={signUpState.organizationid}
-                onChange={handleChange}
+                name='organization'
+                value={signUpState.organization.organizationid}
+                onChange={handleOrganizationChange}
               />
             </Form.Group>
             <Button onClick={handleReturn}>Go Back</Button>

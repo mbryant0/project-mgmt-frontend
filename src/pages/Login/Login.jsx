@@ -5,11 +5,14 @@ import { Icon } from 'rsuite';
 import { connect } from 'react-redux';
 import EmailAndPassword from '../../components/EmailAndPassword/EmailAndPassword';
 import { useHistory } from 'react-router-dom';
-import { loginWithEmailAndPassword } from '../../redux/actions/actions';
+import {
+  loginWithEmailAndPassword,
+  handleLogin,
+} from '../../redux/actions/actions';
 
 const Login = (props) => {
   const history = useHistory();
-  const { loginWithEmailAndPassword } = props;
+  const { loginWithEmailAndPassword, handleLogin } = props;
   const [displayEmail, setDisplayEmail] = useState(true);
   const [displayDemo, setDisplayDemo] = useState(false);
   const [demoRole, setDemoRole] = useState({ email: '', password: '' });
@@ -71,7 +74,7 @@ const Login = (props) => {
 
   const signInWithDemo = () => {
     console.log('BEFORE SIGN IN..');
-    loginWithEmailAndPassword(demoRole.email, demoRole.password).then(() => {
+    handleLogin(demoRole.email, demoRole.password).then(() => {
       setDemoRole({ email: '', password: '' });
       history.push('/dashboard');
     });
@@ -213,4 +216,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { loginWithEmailAndPassword })(Login);
+export default connect(mapStateToProps, {
+  loginWithEmailAndPassword,
+  handleLogin,
+})(Login);

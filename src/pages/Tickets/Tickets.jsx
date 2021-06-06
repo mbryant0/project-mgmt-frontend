@@ -2,13 +2,18 @@
 Add hyperlinks to ticket details
 
 */
-import React from 'react';
+import React, { useEffect } from 'react';
 import Table from '../../components/Table/Table';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { loadOrganizationTickets } from '../../redux/actions/actions';
 
 const Tickets = (props) => {
-  const { tickets } = props;
+  const { tickets, loadOrganizationTickets } = props;
+  useEffect(() => {
+    loadOrganizationTickets();
+  }, []);
+
   const columns = [
     { label: '', field: 'check', sort: 'asc', width: 150 },
     {
@@ -27,6 +32,11 @@ const Tickets = (props) => {
       sort: 'asc',
     },
     {
+      label: 'Ticket Type',
+      field: 'type',
+      sort: 'asc',
+    },
+    {
       label: 'Ticket Status',
       field: 'status',
       sort: 'asc',
@@ -41,11 +51,11 @@ const Tickets = (props) => {
       field: 'assignee',
       sort: 'asc',
     },
-    {
+    /*{
       label: 'Date Created',
       field: 'created',
       sort: 'asc',
-    },
+    },*/
     {
       label: '',
       field: 'details',
@@ -56,11 +66,12 @@ const Tickets = (props) => {
     return {
       check: <input type='checkbox' id='defaultUnchecked' />,
       subject: ticket.subject,
-      projectname: ticket.projectname,
+      projectname: ticket.project.projectname,
       priority: ticket.priority,
-      created: ticket.created,
+      //created: ticket.created,
       owner: ticket.owner,
-      assignee: ticket.assignee,
+      type: ticket.type,
+      assignee: `${ticket.assignee.firstname} ${ticket.assignee.lastname}`,
       status: ticket.status,
       details: <Link to={`/tickets/${ticket.ticketid}`}>View details</Link>,
     };
@@ -81,4 +92,4 @@ const mapStateToProps = (state) => {
     tickets: state.tickets,
   };
 };
-export default connect(mapStateToProps)(Tickets);
+export default connect(mapStateToProps, { loadOrganizationTickets })(Tickets);

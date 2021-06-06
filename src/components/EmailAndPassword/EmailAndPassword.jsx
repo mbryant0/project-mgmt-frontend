@@ -2,12 +2,15 @@ import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import { Button } from 'rsuite';
 import { connect } from 'react-redux';
-import { loginWithEmailAndPassword } from '../../redux/actions/actions';
+import {
+  loginWithEmailAndPassword,
+  handleLogin,
+} from '../../redux/actions/actions';
 import { useHistory } from 'react-router-dom';
 
 const EmailAndPassword = (props) => {
   const history = useHistory();
-  const { loginWithEmailAndPassword, handleClick } = props;
+  const { loginWithEmailAndPassword, handleClick, handleLogin } = props;
   const [loginCredentials, setLoginCredentials] = useState({
     email: '',
     password: '',
@@ -20,10 +23,7 @@ const EmailAndPassword = (props) => {
 
   const handleLoginWithEmail = (e) => {
     e.preventDefault();
-    loginWithEmailAndPassword(
-      loginCredentials.email,
-      loginCredentials.password
-    );
+    handleLogin(loginCredentials.email, loginCredentials.password);
     history.push('/dashboard');
     setLoginCredentials({ email: '', password: '' });
   };
@@ -65,4 +65,4 @@ const EmailAndPassword = (props) => {
   );
 };
 
-export default connect(null, { loginWithEmailAndPassword })(EmailAndPassword);
+export default connect(null, { handleLogin })(EmailAndPassword);

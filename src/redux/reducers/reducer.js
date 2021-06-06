@@ -7,32 +7,13 @@ import {
   LOGOUT_SUCCESS,
   LOAD_CLIENTS,
   LOAD_PROJECTS,
+  JOIN_EXISTING_ORGANIZATION,
+  LOAD_TICKETS,
 } from '../actions/actions';
 
 const initialState = {
   projects: [],
-  tickets: [
-    {
-      ticketid: 1,
-      subject: 'Broken Social Media Links',
-      projectname: 'Coffeeroasters Website',
-      priority: 'Standard',
-      status: 'In Progress',
-      owner: 'Lloyd Castillo',
-      assignee: 'Alberta Stewart',
-      created: '05/01/21 11:19PM',
-    },
-    {
-      ticketid: 2,
-      subject: 'Servers have latency issues',
-      projectname: 'Invoice Tracker',
-      priority: 'High',
-      status: 'Closed',
-      owner: 'Lloyd Castillo',
-      assignee: 'Johnnie Miles',
-      created: '04/14/21 9:53AM',
-    },
-  ],
+  tickets: [],
   emails: [
     {
       subject: 'Please review your onboarding documents',
@@ -52,6 +33,7 @@ const initialState = {
   users: [],
   clients: [],
   organizationid: '',
+  newUser: {},
 };
 function reducer(state = initialState, action) {
   switch (action.type) {
@@ -65,14 +47,16 @@ function reducer(state = initialState, action) {
       return { ...state, currentUser: action.payload };
     case LOAD_USERS:
       return { ...state, users: action.payload };
-
     case LOGOUT_SUCCESS:
       return { ...state, currentUser: {} };
     case LOAD_CLIENTS:
       return { ...state, clients: action.payload };
     case LOAD_PROJECTS:
       return { ...state, projects: action.payload };
-
+    case JOIN_EXISTING_ORGANIZATION:
+      return { ...state, newUser: action.payload };
+    case LOAD_TICKETS:
+      return { ...state, tickets: action.payload };
     default:
       return state;
   }

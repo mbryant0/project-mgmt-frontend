@@ -30,9 +30,6 @@ const SideNavBar = (props) => {
   const [welcomeMessage, setWelcomeMessage] = useState('');
 
   useEffect(() => {
-    getCurrentUserInfo();
-  }, [currentUser]);
-  useEffect(() => {
     var today = new Date();
     var currentHour = today.getHours();
     if (currentHour < 12) {
@@ -74,12 +71,12 @@ const SideNavBar = (props) => {
             </Link>
             <Link to='/projects'>
               <Nav.Item eventKey='4' icon={<Icon icon='folder' />}>
-                My Projects
+                Manage Projects
               </Nav.Item>
             </Link>
             <Link to='/tickets'>
               <Nav.Item eventKey='5' icon={<Icon icon='tasks' />}>
-                My Tickets
+                Manage Tickets
               </Nav.Item>
             </Link>
             <Link to='/inbox'>
