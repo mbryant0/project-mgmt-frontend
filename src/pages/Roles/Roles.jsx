@@ -72,7 +72,7 @@ const Roles = (props) => {
   return (
     <div className='main'>
       <h2>Role Assignment</h2>
-      <Table rows={rows} columns={columns} />
+      <Table rows={rows} columns={columns} bordered={true} striped={true} />
       <button>Update Selected User Role(s)</button>
     </div>
   );

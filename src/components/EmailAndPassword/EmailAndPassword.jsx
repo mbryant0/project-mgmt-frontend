@@ -39,6 +39,7 @@ const EmailAndPassword = (props) => {
             type='text'
             value={loginCredentials.email}
             onChange={handleChange}
+            autoComplete='off'
           />
         </Form.Group>
         <Form.Group>

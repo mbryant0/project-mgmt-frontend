@@ -1,10 +1,6 @@
 /*
 Create a New Project Button
 
-Create a table with the following headers:
-Manage Users/Details (empty header)
-
-
 */
 
 import React, { useEffect } from 'react';

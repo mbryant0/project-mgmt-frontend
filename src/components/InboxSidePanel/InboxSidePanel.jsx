@@ -3,7 +3,7 @@ import React from 'react';
 const InboxSidePanel = () => {
   return (
     <>
-      <h2>Hello</h2>
+      <h2>Inbox</h2>
     </>
   );
 };

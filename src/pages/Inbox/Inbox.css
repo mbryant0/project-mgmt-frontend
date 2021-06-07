@@ -1,0 +1,16 @@
+.star {
+  visibility: hidden;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.star:before {
+  content: '\2605';
+  position: absolute;
+  visibility: visible;
+  color: #4285f4;
+}
+.star:checked:before {
+  content: '\2606';
+  position: absolute;
+  color: black;
+}

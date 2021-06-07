@@ -1,16 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { MDBDataTable } from 'mdbreact';
 
-const Table = ({ rows, columns }) => {
+const Table = ({ rows, columns, bordered, striped }) => {
   const data = {
     columns: columns,
     rows: rows,
   };
-
   return (
     <MDBDataTable
-      striped={true}
-      bordered={true}
+      bordered={bordered}
+      striped={striped}
       hover={true}
       searching={true}
       data={data}
