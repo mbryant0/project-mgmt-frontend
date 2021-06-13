@@ -7,13 +7,15 @@ import Table from '../../components/Table/Table';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { loadOrganizationTickets } from '../../redux/actions/actions';
+import useCheckboxes from '../../hooks/useCheckboxes';
 
-const Tickets = (props) => {
+const Tickets = props => {
   const { tickets, loadOrganizationTickets } = props;
   useEffect(() => {
     loadOrganizationTickets();
   }, []);
 
+  const { value: checkboxState, bind: bindCheckboxValues } = useCheckboxes({});
   const columns = [
     { label: '', field: 'check', sort: 'asc', width: 150 },
     {
@@ -62,9 +64,17 @@ const Tickets = (props) => {
       sort: 'asc',
     },
   ];
-  const rows = tickets.map((ticket) => {
+  const rows = tickets.map((ticket, index) => {
     return {
-      check: <input type='checkbox' id='defaultUnchecked' />,
+      check: (
+        <input
+          type='checkbox'
+          id='defaultUnchecked'
+          value={ticket.ticketid}
+          name={`checkbox${index}`}
+          {...bindCheckboxValues}
+        />
+      ),
       subject: ticket.subject,
       projectname: ticket.project.projectname,
       priority: ticket.priority,
@@ -87,7 +97,7 @@ const Tickets = (props) => {
     </div>
   );
 };
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     tickets: state.tickets,
   };

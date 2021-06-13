@@ -10,7 +10,7 @@ const useCheckboxes = initialState => {
       onChange: e => {
         const { name, value, type, checked } = e.target;
 
-        // On change (if checkbox is checked/unchecked), updatae state with it's boolean checked value and id retrieved from API
+        // On change (if checkbox is checked/unchecked), update state with it's boolean checked value and id retrieved from API
         setHookValue({
           ...hookValue,
           [name]: { checked: checked, value: value },

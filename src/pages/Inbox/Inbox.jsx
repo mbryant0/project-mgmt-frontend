@@ -3,6 +3,7 @@ import InboxSidePanel from '../../components/InboxSidePanel/InboxSidePanel';
 import EmailPreview from '../../components/EmailPreview/EmailPreview';
 import { connect } from 'react-redux';
 import { getCurrentUserInfo } from '../../redux/actions/actions';
+import useCheckboxes from '../../hooks/useCheckboxes';
 import Table from '../../components/Table/Table';
 import './Inbox.css';
 
@@ -14,13 +15,14 @@ Emails
 
 */
 
-const Inbox = (props) => {
+const Inbox = props => {
   const { currentUser, getCurrentUserInfo } = props;
 
   useEffect(() => {
     getCurrentUserInfo();
   }, []);
 
+  const { value: checkboxState, bind: bindCheckboxValues } = useCheckboxes({});
   const columns = [
     {
       label: '',
@@ -42,10 +44,18 @@ const Inbox = (props) => {
     },
   ];
 
-  const rows = currentUser.emails.map((email) => {
+  const rows = currentUser.emails.map((email, index) => {
     return {
-      starred: <input class='star' type='checkbox' title='starred' />,
-      checked: <input type='checkbox' title='checked' />,
+      starred: <input className='star' type='checkbox' title='starred' />,
+      checked: (
+        <input
+          type='checkbox'
+          title='checked'
+          value={email.emailid}
+          name={`checkbox${index}`}
+          {...bindCheckboxValues}
+        />
+      ),
       subject: email.subject,
     };
   });
@@ -58,7 +68,7 @@ const Inbox = (props) => {
     </>
   );
 };
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     currentUser: state.currentUser,
   };

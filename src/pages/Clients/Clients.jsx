@@ -3,14 +3,16 @@ import { connect } from 'react-redux';
 import Table from '../../components/Table/Table';
 import { Link } from 'react-router-dom';
 import { loadOrganizationClients } from '../../redux/actions/actions';
+import useCheckboxes from '../../hooks/useCheckboxes';
 
-const Clients = (props) => {
+const Clients = props => {
   const { clients, loadOrganizationClients } = props;
 
   useEffect(() => {
     loadOrganizationClients();
   }, []);
-  console.log(clients);
+
+  const { value: checkboxState, bind: bindCheckboxValues } = useCheckboxes({});
   const columns = [
     { label: '', field: 'check', sort: 'disabled', width: 150 },
     {
@@ -45,9 +47,17 @@ const Clients = (props) => {
       width: 100,
     },
   ];
-  const rows = clients.map((client) => {
+  const rows = clients.map((client, index) => {
     return {
-      check: <input type='checkbox' id='defaultUnchecked' />,
+      check: (
+        <input
+          type='checkbox'
+          id='defaultUnchecked'
+          value={client.clientid}
+          name={`checkbox${index}`}
+          {...bindCheckboxValues}
+        />
+      ),
       name: client.name,
       city: client.city,
       state: client.state,
@@ -66,7 +76,7 @@ const Clients = (props) => {
     </div>
   );
 };
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     clients: state.clients,
   };
