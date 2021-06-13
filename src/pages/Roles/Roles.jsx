@@ -3,43 +3,24 @@ UPDATE ROLES FOR USERS
 ADD POPUP THAT SAYS ARE YOU SURE YOU WANT TO DISABLE THE FOLLOWING USER ACCOUNTS?
 
 */
-import React, { Component, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { connect } from 'react-redux';
 import Table from '../../components/Table/Table';
-import { loadOrganizationUsers } from '../../redux/actions/actions';
+import {
+  handleLogin,
+  loadOrganizationUsers,
+} from '../../redux/actions/actions';
+import useCheckboxes from '../../hooks/useCheckboxes';
 
 const Roles = props => {
   const { users, loadOrganizationUsers, currentUser } = props;
 
   useEffect(() => {
     loadOrganizationUsers();
-  }, [currentUser]);
-  const [roleIds, setRoleIds] = useState([]);
-  const [checkedState, setCheckedState] = useState(
-    new Array(users.length).fill(false)
-  );
+  }, []);
 
-  const handleClick = position => {
-    // Updates checkbox state from true to false or from false to true when clicked based on index
-    const updatedCheckedState = checkedState.map((item, index) => {
-      return index === position ? !item : item;
-    });
-    setCheckedState(updatedCheckedState);
-
-    // Maps through array. If checkbox state is true, return its corresponding user id. If not, return its current state (false).
-    const listOfIds = updatedCheckedState.map((item, index) => {
-      if (item === true) {
-        return users[index].userid;
-      }
-      return item;
-    });
-
-    // Filters out all false checkboxes from array
-    const filteredIds = listOfIds.filter(id => !id === false);
-    setRoleIds(filteredIds);
-    console.log(roleIds);
-  };
+  const { value: checkboxState, bind: bindCheckboxValues } = useCheckboxes({});
 
   const columns = [
     { label: '', field: 'check', sort: 'disabled', width: 150 },
@@ -68,8 +49,8 @@ const Roles = props => {
           type='checkbox'
           id='defaultUnchecked'
           value={user.userid}
-          onChange={() => handleClick(index)}
-          name='role'
+          {...bindCheckboxValues}
+          name={`checkbox${index}`}
         />
       ),
       name: `${user.firstname}  ${user.lastname}`,
