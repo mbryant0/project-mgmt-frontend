@@ -5,15 +5,15 @@ Format page properly
 import React from 'react';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import './ClientDetails.css';
 
-const ClientDetails = (props) => {
+const ClientDetails = props => {
   const { clientId } = useParams();
   const { clients } = props;
-  const thisClient = clients.find((client) => client.clientid == clientId);
+  const thisClient = clients.find(client => client.clientid == clientId);
 
   return (
-    <>
-      <h2>Client Details Page</h2>
+    <div className='client-details-container'>
       <h3>{thisClient.name}</h3>
       <p>{thisClient.description}</p>
       <p>Phone Number:</p>
@@ -27,10 +27,10 @@ const ClientDetails = (props) => {
         </p>
       </address>
       <p>Notes:</p> {/*Add favicon to edit notes & then add popup to do so*/}
-    </>
+    </div>
   );
 };
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     clients: state.clients,
   };

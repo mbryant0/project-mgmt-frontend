@@ -9,15 +9,11 @@ import {
   checkIfOrganizationExists,
   handleSignUp,
 } from '../../redux/actions/actions';
+import axios from 'axios';
 
 const Signup = (props) => {
   const history = useHistory();
-  const {
-    handleSignUp,
-    checkIfOrganizationExists,
-    createOrganization,
-    organizationid,
-  } = props;
+  const { handleSignUp, checkIfOrganizationExists } = props;
   const initialSignUpValues = {
     firstname: '',
     lastname: '',
@@ -35,7 +31,9 @@ const Signup = (props) => {
     createBack: false,
     joinBack: false,
   });
-  console.log(organizationid);
+
+  const [organizationname, setorganizationname] = useState({ name: '' });
+  const [role, setRole] = useState('');
   const [signUpState, setSignUpState] = useState(initialSignUpValues);
 
   const [disabled, setDisabled] = useState(true);
@@ -72,14 +70,29 @@ const Signup = (props) => {
   };
 
   const handleNewOrganization = () => {
-    createOrganization(signUpState.organizationname);
-    setDisplay({
-      ...display,
-      create: false,
-      buttons: false,
-      join: false,
-      userInfo: true,
-    });
+    //createOrganization(signUpState.organizationname);
+    axios
+      .post('http://localhost:2021/organizations/organization', {
+        organizationname: organizationname.name,
+      })
+      .then((res) => {
+        console.log(res.data.organizationid);
+        setSignUpState({
+          ...signUpState,
+          organization: { organizationid: res.data.organizationid },
+        });
+        setDisplay({
+          ...display,
+          create: false,
+          buttons: false,
+          join: false,
+          userInfo: true,
+        });
+        setRole('admin');
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const handleExistingOrganization = () => {
@@ -91,6 +104,7 @@ const Signup = (props) => {
       join: false,
       userInfo: true,
     });
+    setRole('inactive');
   };
 
   const handleChange = (e) => {
@@ -104,7 +118,7 @@ const Signup = (props) => {
   };
 
   const handleOrganizationChange = (e) => {
-    const { name, value } = e.target;
+    const { value } = e.target;
     setSignUpState({
       ...signUpState,
       organization: {
@@ -112,11 +126,19 @@ const Signup = (props) => {
       },
     });
   };
+
+  const handleOrganizationNameChange = (e) => {
+    const { value } = e.target;
+    setorganizationname({ ...organizationname, name: value });
+    console.log(organizationname);
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleSignUp(signUpState);
+    handleSignUp(signUpState, role);
     history.push('/dashboard');
   };
+
+  console.log(display);
   return (
     <div className='signup'>
       <h1
@@ -142,7 +164,7 @@ const Signup = (props) => {
               type='text'
               name='organizationname'
               value={signUpState.organizationname}
-              onChange={handleChange}
+              onChange={handleOrganizationNameChange}
             />
           </Form.Group>
           <Button onClick={handleReturn}>Go Back</Button>
@@ -171,7 +193,7 @@ const Signup = (props) => {
           <p>
             Almost done! Please fill out the form below to finish registration.
           </p>
-          <Form onSubmit={handleSubmit}>
+          <Form>
             <Form.Group>
               <Form.Label>First Name</Form.Label>
               <Form.Control
@@ -218,10 +240,17 @@ const Signup = (props) => {
               />
             </Form.Group>
             {display.createBack && (
-              <Button onClick={handleCreate}>Go Back</Button>
+              <>
+                <Button onClick={handleCreate}>Go Back</Button>
+                <Button onClick={handleSubmit}>Complete Registration</Button>
+              </>
             )}
-            {display.joinBack && <Button onClick={handleJoin}>Go Back</Button>}
-            <Button type='submit'>Complete Registration</Button>
+            {display.joinBack && (
+              <>
+                <Button onClick={handleJoin}>Go Back</Button>
+                <Button onClick={handleSubmit}>Complete Registration</Button>
+              </>
+            )}
           </Form>
         </div>
       )}
@@ -232,7 +261,6 @@ const Signup = (props) => {
 const mapStateToProps = (state) => {
   return {
     currentUser: state.currentUser,
-    organizationid: state.organizationid,
   };
 };
 
