@@ -14,10 +14,10 @@ const ClientDetails = props => {
 
   return (
     <div className='client-details-container'>
-      <h3>{thisClient.name}</h3>
+      <input type='text' value={thisClient.name} disabled />
       <p>{thisClient.description}</p>
       <p>Phone Number:</p>
-      <a href={thisClient.phoneNumber}>{thisClient.phoneNumber}</a>
+      <a href={thisClient.phonenumber}>{thisClient.phonenumber}</a>
       <br />
       <a href='#'>{thisClient.website}</a>
       <address>
